@@ -30,7 +30,24 @@ define Device/elecom_wrc-2533gent
   DEVICE_PACKAGES := kmod-usb-ohci kmod-usb2 kmod-usb3 kmod-mt7615e \
 	kmod-mt7615-firmware kmod-btmtkuart swconfig
 endef
-TARGET_DEVICES += elecom_wrc-2533gent
+TARGET_DEVICES += elecom-wrc-2533gent
+
+define Device/iptime_a8004t-xr
+  DEVICE_VENDOR := ipTIME
+  DEVICE_MODEL := A8004T-XR
+  DEVICE_DTS := mt7622-iptime-a8004t-xr
+  DEVICE_DTS_DIR := $(DTS_DIR)/mediatek
+  DEVICE_PACKAGES := kmod-usb-ohci kmod-usb2 kmod-usb3 kmod-mt7615e \
+  kmod-mt7615-firmware mt7622bt-firmware swconfig
+  SUPPORTED_DEVICES := iptime,a8004t-xr
+  IPTIME_MODEL := a8txr
+  IPTIME_VERSION := 11_962
+  IPTIME_FIRMWARE_OFFSET := 0x800
+  KERNEL_SIZE := 4094k
+  IMAGE/sysupgrade.bin := kernel-bin | pad-to $$(KERNEL_SIZE) | iptime-fw-header | \
+    append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += iptime_a8004t-xr
 
 define Device/mediatek_mt7622-rfb1
   DEVICE_VENDOR := MediaTek
@@ -57,4 +74,3 @@ define Device/mediatek_mt7622-ubi
   IMAGE/sysupgrade.bin := sysupgrade-tar
   DEVICE_PACKAGES := kmod-usb-ohci kmod-usb2 kmod-usb3 kmod-ata-ahci-mtk
 endef
-TARGET_DEVICES += mediatek_mt7622-ubi

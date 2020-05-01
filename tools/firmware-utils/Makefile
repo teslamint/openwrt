@@ -25,6 +25,7 @@ endef
 define Host/Compile
 	mkdir -p $(HOST_BUILD_DIR)/bin
 	$(call cc,add_header)
+	$(call cc,add_iptime_fw_header cyg_crc32, -Wall)
 	$(call cc,addpattern)
 	$(call cc,asustrx)
 	$(call cc,buffalo-enc buffalo-lib,-Wall)

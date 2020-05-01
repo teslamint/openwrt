@@ -25,6 +25,8 @@ platform_check_image() {
 	[ "$#" -gt 1 ] && return 1
 
 	case "$board" in
+	iptime,a8004t-xr)
+		;;
 	*)
 		[ "$magic" != "d00dfeed" ] && {
 			echo "Invalid image type."

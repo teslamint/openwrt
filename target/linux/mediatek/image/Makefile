@@ -18,6 +18,14 @@ define Build/sysupgrade-emmc
 		$(IMAGE_ROOTFS)
 endef
 
+# prepend iptime-specific firmware header to image
+# add_iptime_fw_header <model> <version> <input_file> <output_file>
+define Build/iptime-fw-header
+	-$(STAGING_DIR_HOST)/bin/add_iptime_fw_header \
+		$(IPTIME_MODEL) $(IPTIME_VERSION) \
+		$@ $@.new && mv $@.new $@ || rm -f $@
+endef
+
 # default all platform image(fit) build 
 define Device/Default
   PROFILES = Default $$(DEVICE_NAME)
